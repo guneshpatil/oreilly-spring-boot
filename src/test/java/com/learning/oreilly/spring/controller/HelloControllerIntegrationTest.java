@@ -8,9 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(HelloController.class)
@@ -19,7 +21,7 @@ public class HelloControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testHelloEmptyName() throws Exception{
+    public void testHelloEmptyName() throws Exception {
         mockMvc.perform(get("/hello").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
                 .andExpect(view().name("hello"))
@@ -27,7 +29,7 @@ public class HelloControllerIntegrationTest {
     }
 
     @Test
-    public void testHelloWithName() throws Exception{
+    public void testHelloWithName() throws Exception {
         mockMvc.perform(get("/hello").param("name", "Neo").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
                 .andExpect(view().name("hello"))
